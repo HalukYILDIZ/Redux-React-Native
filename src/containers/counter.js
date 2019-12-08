@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 
 import CounterControl from '../components/CounterControl/CounterControl';
 import CounterOutput from '../components/CounterOutput/CounterOutput';
+import * as ActionTypes from '../store/actions';
 
 class Counter extends Component {
   render() {
@@ -24,7 +25,11 @@ class Counter extends Component {
           label="Subtract 5"
           clicked={this.props.onSubstractCounter}
         />
-        <Button title="store result" onPress={this.props.onStoreResult} />
+        {/* <Button title="store result" onPress={this.props.onStoreResult} /> */}
+        <Button
+          title="store result"
+          onPress={() => this.props.onStoreResult(this.props.ctr)}
+        />
         <FlatList
           data={this.props.results}
           keyExtractor={(item, index) => item.id + index}
@@ -41,16 +46,20 @@ class Counter extends Component {
 }
 
 const mapStateToProps = state => {
-  return {ctr: state.counter, results: state.results};
+  //return {ctr: state.counter, results: state.results};
+  return {ctr: state.ctr.counter, results: state.res.results};
 };
 const mapDispatchToProps = dispatch => {
   return {
-    onIncrementCounter: () => dispatch({type: 'INCREMENT', val: 1}),
-    onDecrementCounter: () => dispatch({type: 'DECREMENT', val: 1}),
-    onAddCounter: () => dispatch({type: 'ADD', val: 5}),
-    onSubstractCounter: () => dispatch({type: 'SUBSTRACT', val: 5}),
-    onStoreResult: () => dispatch({type: 'STORE_RESULT'}),
-    onDeleteResult: id => dispatch({type: 'DELETE_RESULT', resultElId: id}),
+    onIncrementCounter: () => dispatch({type: ActionTypes.INCREMENT, val: 1}),
+    onDecrementCounter: () => dispatch({type: ActionTypes.DECREMENT, val: 1}),
+    onAddCounter: () => dispatch({type: ActionTypes.ADD, val: 5}),
+    onSubstractCounter: () => dispatch({type: ActionTypes.SUBTRACT, val: 5}),
+    //onStoreResult: () => dispatch({type: ActionTypes.STORE_RESULT}),
+    onStoreResult: result =>
+      dispatch({type: ActionTypes.STORE_RESULT, result: result}),
+    onDeleteResult: id =>
+      dispatch({type: ActionTypes.DELETE_RESULT, resultElId: id}),
   };
 };
 
