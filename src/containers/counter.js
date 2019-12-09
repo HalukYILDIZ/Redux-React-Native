@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 
 import CounterControl from '../components/CounterControl/CounterControl';
 import CounterOutput from '../components/CounterOutput/CounterOutput';
-import * as ActionTypes from '../store/actions';
+import * as actionCreators from '../store/actions/actions';
 
 class Counter extends Component {
   render() {
@@ -51,19 +51,14 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    onIncrementCounter: () => dispatch({type: ActionTypes.INCREMENT, val: 1}),
-    onDecrementCounter: () => dispatch({type: ActionTypes.DECREMENT, val: 1}),
-    onAddCounter: () => dispatch({type: ActionTypes.ADD, val: 5}),
-    onSubstractCounter: () => dispatch({type: ActionTypes.SUBTRACT, val: 5}),
-    //onStoreResult: () => dispatch({type: ActionTypes.STORE_RESULT}),
-    onStoreResult: result =>
-      dispatch({type: ActionTypes.STORE_RESULT, result: result}),
-    onDeleteResult: id =>
-      dispatch({type: ActionTypes.DELETE_RESULT, resultElId: id}),
+    onIncrementCounter: () => dispatch(actionCreators.increment(1)),
+    onDecrementCounter: () => dispatch(actionCreators.decrement(1)),
+    onAddCounter: () => dispatch(actionCreators.add(5)),
+    onSubstractCounter: () => dispatch(actionCreators.subtract(5)),
+    onStoreResult: result => dispatch(actionCreators.storeResult(result)),
+    onDeleteResult: id => dispatch(actionCreators.deleteResult(id)),
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Counter);
+// eslint-disable-next-line prettier/prettier
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
