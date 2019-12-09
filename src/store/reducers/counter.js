@@ -1,4 +1,5 @@
-import * as ActionTypes from '../actions/actions';
+import * as ActionTypes from '../actions/actionTypes';
+import {updateObject} from '../utility';
 
 const initialState = {
   counter: 0,
@@ -10,10 +11,12 @@ const reducer = (state = initialState, action) => {
   //   return state;
   switch (action.type) {
     case ActionTypes.INCREMENT:
-      return {
-        ...state,
-        counter: state.counter + action.val,
-      };
+      return updateObject(state, {counter: state.counter + action.val});
+    // diğer yaklaşımdan farkı kod tekrarını azaltır,utility de bulunan fonksiyonu diğer tüm fonksiyonları kısaltmak için bu şekilde kullanabiliriz.
+    // return {
+    //   ...state,
+    //   counter: state.counter + action.val,
+    // };
     case ActionTypes.DECREMENT:
       return {
         ...state,
