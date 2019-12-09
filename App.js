@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import {Provider} from 'react-redux';
+import thunk from 'redux-thunk';
 //import reducer from './src/store/reducer';
 import counterReducer from './src/store/reducers/counter';
 import resultReducer from './src/store/reducers/result';
@@ -28,7 +29,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 //const store = createStore(rootReducer, applyMiddleware(logger));
 const store = createStore(
   rootReducer,
-  /* preloadedState, */ composeEnhancers(applyMiddleware(logger)),
+  /* preloadedState, */ composeEnhancers(applyMiddleware(logger, thunk)),
 );
 
 class App extends Component {

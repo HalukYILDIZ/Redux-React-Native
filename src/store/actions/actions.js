@@ -29,15 +29,31 @@ export const subtract = value => {
     val: value,
   };
 };
-export const storeResult = res => {
+// export const storeResult = res => {
+//   return {
+//     type: STORE_RESULT,
+//     result: res,
+//   };
+// };
+export const saveResult = res => {
   return {
     type: STORE_RESULT,
     result: res,
   };
 };
+
+export const storeResult = res => {
+  //with redux-thunk
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(saveResult(res));
+    }, 2000);
+  };
+};
+
 export const deleteResult = resElId => {
   return {
-    type: STORE_RESULT,
+    type: DELETE_RESULT,
     resultElId: resElId,
   };
 };
